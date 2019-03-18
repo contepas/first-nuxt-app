@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Home</h1>
+    <h3>I'm gonna list every event</h3>
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 export default {
   head() {
     return {
-      title: 'Home'
+      title: 'Event Listing'
     }
   }
 }
