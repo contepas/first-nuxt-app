@@ -21,7 +21,7 @@ export const actions = {
         // No valid cookie found
       }
     }
-    commit('setAuth', auth)
+    commit('SET_AUTH', auth)
   }
 }
 

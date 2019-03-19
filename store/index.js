@@ -1,4 +1,4 @@
-// export const namespaced = true
+const cookieparser = process.server ? require('cookieparser') : undefined
 
 export const state = () => ({
   profile_info: {}
@@ -16,5 +16,17 @@ export const actions = {
       'https://teamtreehouse.com/pasqualeconte.json'
     )
     commit('SET_PROFILE_INFO', data)
+  },
+  nuxtServerInit({ commit }, { req }) {
+    let auth = null
+    if (req.headers.cookie) {
+      const parsed = cookieparser.parse(req.headers.cookie)
+      try {
+        auth = JSON.parse(parsed.auth)
+      } catch (err) {
+        // No valid cookie found
+      }
+    }
+    commit('authentication/SET_AUTH', auth)
   }
 }
