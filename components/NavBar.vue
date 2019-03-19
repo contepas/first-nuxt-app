@@ -8,15 +8,43 @@
         List
       </nuxt-link>
       |
-      <nuxt-link to="/event/create">
-        Create
-      </nuxt-link>
+      <nuxt-link to="/event/create"> Create </nuxt-link>
+      <div v-if="auth">
+        |
+        <nuxt-link to="/secret">
+          Secret
+        </nuxt-link>
+        |
+        <button @click="logout">
+          Logout
+        </button>
+      </div>
+      <div v-else>
+        |
+        <nuxt-link to="/login">
+          Login
+        </nuxt-link>
+      </div>
     </nav>
   </div>
 </template>
 
 <script>
-export default {}
+import { mapGetters } from 'vuex'
+
+const Cookie = process.client ? require('js-cookie') : undefined
+
+export default {
+  computed: mapGetters({
+    auth: 'authentication/get'
+  }),
+  methods: {
+    logout() {
+      Cookie.remove('auth')
+      this.$store.commit('authentication/SET_AUTH', null)
+    }
+  }
+}
 </script>
 
 <style scoped>
